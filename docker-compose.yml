@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  blueagenda_api:
+    container_name: blueagenda_api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      
+      ConnectionStrings__DefaultConnection: "SuaStringDeConexão"
+      JwtSettings__Issuer: "BlueAgendaApi"
+      JwtSettings__SecretKey: "SuaChave"
+
+    depends_on:
+      - sqlserver
+    restart: always
+
+  sqlserver:
+    container_name: blueagenda_sqlserver
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: "SuaSenha"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    restart: always
+
+volumes:
+  sqlserver_data:
