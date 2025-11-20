@@ -25,7 +25,7 @@ public class AuthenticationController : ControllerBase
         }
         catch (InvalidOperationException ex)
         {
-            return BadRequest(ex.Message);
+            return BadRequest(new { ex.Message });
         }
     }
 
@@ -39,7 +39,7 @@ public class AuthenticationController : ControllerBase
         }
         catch (UnauthorizedAccessException ex)
         {
-            return Unauthorized(ex.Message);
+            return Unauthorized(new { ex.Message });
         }
     }
 }

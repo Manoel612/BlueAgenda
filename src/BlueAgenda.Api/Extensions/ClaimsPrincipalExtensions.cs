@@ -9,7 +9,7 @@ public static class ClaimsPrincipalExtensions
         var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(userId))
         {
-            throw new UnauthorizedAccessException("Usuário não autorizado");
+            throw new UnauthorizedAccessException("User unauthorized.");
         }
         return userId;
     }

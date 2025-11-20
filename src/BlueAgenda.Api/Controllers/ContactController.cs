@@ -28,7 +28,7 @@ public class ContactController : ControllerBase
         }
         catch (KeyNotFoundException ex)
         {
-            return NotFound(new { message = ex.Message });
+            return NotFound(new { ex.Message });
         }
     }
 
@@ -53,7 +53,7 @@ public class ContactController : ControllerBase
         }
         catch (InvalidOperationException ex)
         {
-            return BadRequest(ex.Message);
+            return BadRequest(new { ex.Message });
         }
     }
 
@@ -62,12 +62,13 @@ public class ContactController : ControllerBase
     {
         try
         {
-            var entity = await ContactService.UpdateAsync(id, model);
+            string userId = User.GetUserId();
+            var entity = await ContactService.UpdateAsync(userId, id, model);
             return Ok(entity);
         }
         catch (KeyNotFoundException ex)
         {
-            return NotFound(ex.Message);
+            return NotFound(new { ex.Message });
         }
     }
 
@@ -76,12 +77,13 @@ public class ContactController : ControllerBase
     {
         try
         {
-            var entity = await ContactService.DeactivateAsync(id);
+            string userId = User.GetUserId();
+            var entity = await ContactService.DeactivateAsync(userId, id);
             return Ok(entity);
         }
         catch (KeyNotFoundException ex)
         {
-            return NotFound(ex.Message);
+            return NotFound(new { ex.Message });
         }
     }
 }

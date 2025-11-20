@@ -25,7 +25,7 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where T
     public async Task<TEntity> GetById(Guid id)
     {
         var entity = await DbSet.FirstOrDefaultAsync(e => e.Id == id)
-            ?? throw new KeyNotFoundException($"{typeof(TEntity).Name} with id {id} not found");
+            ?? throw new KeyNotFoundException($"{typeof(TEntity).Name} with id {id} not found.");
 
         return entity;
     }
@@ -38,10 +38,8 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where T
         return newEntity.Entity;
     }
 
-    public async Task<TEntity> ActivateOrDeactivateAsync(Guid id, bool inactive = true)
+    public async Task<TEntity> ActivateOrDeactivateAsync(TEntity entity, bool inactive = true)
     {
-        var entity = await GetById(id);
-
         entity.InactivatedAt = inactive ? DateTime.UtcNow : null;
 
         return Update(entity);

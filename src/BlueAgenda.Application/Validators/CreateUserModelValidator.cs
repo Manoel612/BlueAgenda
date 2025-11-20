@@ -21,12 +21,14 @@ public class CreateUserModelValidator : AbstractValidator<CreateUserModel>
 
         RuleFor(x => x.Cpf)
             .NotEmpty()
-            .Length(11);
+            .Must(CpfValidator.IsValid)
+            .Matches(@"^\d{11}$");
 
         RuleFor(x => x.Password)
             .NotEmpty();
 
         RuleFor(x => x.BirthDate)
-            .NotEmpty();
+            .NotEmpty()
+            .LessThanOrEqualTo(DateTime.Today);
     }
 }

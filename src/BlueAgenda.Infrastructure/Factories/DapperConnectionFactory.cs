@@ -11,7 +11,7 @@ public class DapperConnectionFactory
     public DapperConnectionFactory(IConfiguration configuration)
     {
         ConnectionString = configuration.GetConnectionString("DefaultConnection")
-            ?? throw new Exception("Connection string not found");
+            ?? throw new Exception("Connection string not found.");
     }
 
     public IDbConnection CreateConnection()

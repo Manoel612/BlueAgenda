@@ -24,7 +24,7 @@ public class ContactService : IContactService
     public async Task<ContactModel> GetByIdAsync(Guid id)
     {
         var contact = await ReadRepository.GetByIdAsync(id) ??
-            throw new KeyNotFoundException($"Contact with id {id} not found");
+            throw new KeyNotFoundException($"Contact with id {id} not found.");
 
         return contact;
     }
@@ -54,9 +54,12 @@ public class ContactService : IContactService
         return Mapper.Map<ContactModel>(newContact);
     }
 
-    public async Task<ContactModel> UpdateAsync(Guid id, UpdateContactModel model)
+    public async Task<ContactModel> UpdateAsync(string userId, Guid id, UpdateContactModel model)
     {
         var entity = await Repository.GetById(id);
+
+        if (entity.AspNetUserId != userId)
+            throw new UnauthorizedAccessException("You do not have permission to update this contact.");
 
         Mapper.Map(model, entity);
 
@@ -65,9 +68,14 @@ public class ContactService : IContactService
         return Mapper.Map<ContactModel>(entity);
     }
 
-    public async Task<ContactModel> DeactivateAsync(Guid id)
+    public async Task<ContactModel> DeactivateAsync(string userId, Guid id)
     {
-        var newContact = await Repository.ActivateOrDeactivateAsync(id);
+        var entity = await Repository.GetById(id);
+
+        if (entity.AspNetUserId != userId)
+            throw new UnauthorizedAccessException("You do not have permission to update this contact.");
+
+        var newContact = await Repository.ActivateOrDeactivateAsync(entity);
         await UnitOfWork.SaveChangesAsync();
 
         return Mapper.Map<ContactModel>(newContact);

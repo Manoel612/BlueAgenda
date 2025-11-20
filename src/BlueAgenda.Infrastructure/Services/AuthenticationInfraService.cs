@@ -36,17 +36,17 @@ public class AuthenticationInfraService : IAuthenticationInfraService
         }
 
         var errors = string.Join(", ", result.Errors.Select(e => e.Description));
-        throw new InvalidOperationException($"Falha no registro: {errors}");
+        throw new InvalidOperationException(errors);
     }
 
     public async Task<string> LoginAsync(string email, string password)
     {
-        var user = await UserManager.FindByEmailAsync(email) ?? throw new UnauthorizedAccessException("Usuário não encontrado");
+        var user = await UserManager.FindByEmailAsync(email) ?? throw new UnauthorizedAccessException("User not found.");
 
         var result = await SignInManager.CheckPasswordSignInAsync(user, password, lockoutOnFailure: false);
 
         if (!result.Succeeded)
-            throw new UnauthorizedAccessException("Usuário não autorizado");
+            throw new UnauthorizedAccessException("User unauthorized.");
 
         return JwtService.GenerateToken(Mapper.Map<UserModel>(user));
     }
