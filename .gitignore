@@ -1,0 +1,107 @@
+##############
+#  .NET CORE
+##############
+bin/
+obj/
+**/bin/
+**/obj/
+[Bb]uild/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+
+##############
+#  CLEAN ARCHITECTURE LAYERS
+##############
+src/**/bin/
+src/**/obj/
+tests/**/bin/
+tests/**/obj/
+
+##############
+#  VISUAL STUDIO
+##############
+.vs/
+*.user
+*.suo
+*.cache
+*.pdb
+
+##############
+#  VS CODE
+##############
+.vscode/
+.history/
+
+##############
+#  SETTINGS
+##############
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.local.json
+src/**/Properties/launchSettings.json
+
+##############
+#  LOGS
+##############
+*.log
+logs/
+Logs/
+
+##############
+#  ENTITY FRAMEWORK
+##############
+**/Migrations/*_old*
+**/Migrations/*-backup*
+**/Migrations/*temp*
+
+# Bancos locais
+*.db
+*.sqlite
+*.sqlite3
+
+# EF Tools cache
+**/.efcore/
+**/.efcache/
+**/obj/**/project.assets.json
+
+##############
+#  DOTNET TOOLS
+##############
+# dotnet tools local
+**/.config/dotnet-tools.json
+**/.config/**
+
+# diretórios tools gerais
+tools/
+src/**/tools/
+**/tools/
+*.psmdcp
+
+##############
+#  DOCKER
+##############
+docker-compose.override.yml
+docker-data/
+**/docker-data/
+
+##############
+#  SISTEMA OPERACIONAL
+##############
+# Windows
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# macOS
+.DS_Store
+
+##############
+#  IDE / RIDER
+##############
+.idea/
+*.DotSettings.user
+_ReSharper*/
