@@ -1,4 +1,4 @@
-using BlueAgenda.Application.Interfaces;
+using BlueAgenda.Application.Interfaces.Services;
 using BlueAgenda.Application.Models;
 using Microsoft.AspNetCore.Mvc;
 

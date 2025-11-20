@@ -1,7 +1,7 @@
 using BlueAgenda.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using BlueAgenda.Application;
 using Microsoft.OpenApi.Models;
+using BlueAgenda.Application.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

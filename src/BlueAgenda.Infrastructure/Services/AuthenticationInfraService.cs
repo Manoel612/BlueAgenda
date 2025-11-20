@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using BlueAgenda.Application.Models;
-using BlueAgenda.Application.Interfaces;
 using AutoMapper;
-using BlueAgenda.Domain.Entities;
 using BlueAgenda.Infrastructure.Identity;
+using BlueAgenda.Application.Interfaces.Services;
 
 namespace BlueAgenda.Infrastructure.Services;
 
@@ -26,14 +25,14 @@ public class AuthenticationInfraService : IAuthenticationInfraService
         SignInManager = signInManager;
     }
 
-    public async Task<User> RegisterAsync(CreateUserModel model)
+    public async Task<UserModel> RegisterAsync(CreateUserModel model)
     {
         var user = Mapper.Map<AspNetUser>(model);
         var result = await UserManager.CreateAsync(user, model.Password);
 
         if (result.Succeeded)
         {
-            return Mapper.Map<User>(user);
+            return Mapper.Map<UserModel>(user);
         }
 
         var errors = string.Join(", ", result.Errors.Select(e => e.Description));
@@ -49,7 +48,7 @@ public class AuthenticationInfraService : IAuthenticationInfraService
         if (!result.Succeeded)
             throw new UnauthorizedAccessException("Usuário não autorizado");
 
-        return JwtService.GenerateToken(Mapper.Map<User>(user));
+        return JwtService.GenerateToken(Mapper.Map<UserModel>(user));
     }
 
 }

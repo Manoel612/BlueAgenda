@@ -1,6 +1,5 @@
-using BlueAgenda.Application.Interfaces;
+using BlueAgenda.Application.Interfaces.Services;
 using BlueAgenda.Application.Models;
-using BlueAgenda.Domain.Entities;
 
 namespace BlueAgenda.Application.Services;
 
@@ -14,7 +13,7 @@ public class AuthenticationService : IAuthenticationService
         AuthenticationInfraService = authenticationInfraService;
     }
 
-    public async Task<User> RegisterAsync(CreateUserModel model)
+    public async Task<UserModel> RegisterAsync(CreateUserModel model)
     {
         return await AuthenticationInfraService.RegisterAsync(model);
     }

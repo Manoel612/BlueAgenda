@@ -7,6 +7,8 @@ namespace BlueAgenda.Infrastructure.Data;
 
 public class BlueAgendaDbContext : IdentityDbContext<AspNetUser>
 {
+    public DbSet<Contact> Contacts { get; set; }
+
     public BlueAgendaDbContext(DbContextOptions<BlueAgendaDbContext> options) : base(options)
     {
 

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using BlueAgenda.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace BlueAgenda.Infrastructure.Identity;
@@ -15,4 +16,6 @@ public class AspNetUser : IdentityUser
 
     [Required]
     public required DateTime BirthDate { get; set; }
+
+    public IEnumerable<Contact>? Contacts { get; set; }
 }

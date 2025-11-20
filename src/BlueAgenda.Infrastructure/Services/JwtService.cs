@@ -1,5 +1,5 @@
-using BlueAgenda.Application.Interfaces;
-using BlueAgenda.Domain.Entities;
+using BlueAgenda.Application.Interfaces.Services;
+using BlueAgenda.Application.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -17,7 +17,7 @@ public class JwtService : IJwtService
         Config = config;
     }
 
-    public string GenerateToken(User user)
+    public string GenerateToken(UserModel user)
     {
         var jwtSettings = Config.GetSection("JwtSettings");
         var claims = new[]
