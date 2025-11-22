@@ -38,7 +38,7 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where T
         return newEntity.Entity;
     }
 
-    public async Task<TEntity> ActivateOrDeactivateAsync(TEntity entity, bool inactive = true)
+    public TEntity ActivateOrDeactivate(TEntity entity, bool inactive = true)
     {
         entity.InactivatedAt = inactive ? DateTime.UtcNow : null;
 

@@ -111,7 +111,7 @@ namespace BlueAgenda.Application.Tests.Services
             var deactivatedContact = new Contact { Id = contactId, Name = "John Doe", AspNetUserId = userId, IsActive = false };
             var deactivatedContactModel = new ContactModel { Id = contactId, Name = "John Doe", IsActive = false };
             _mockRepository.Setup(r => r.GetById(contactId)).ReturnsAsync(contact);
-            _mockRepository.Setup(r => r.ActivateOrDeactivateAsync(contact)).ReturnsAsync(deactivatedContact);
+            _mockRepository.Setup(r => r.ActivateOrDeactivate(contact)).ReturnsAsync(deactivatedContact);
             _mockMapper.Setup(m => m.Map<ContactModel>(deactivatedContact)).Returns(deactivatedContactModel);
 
             // Act

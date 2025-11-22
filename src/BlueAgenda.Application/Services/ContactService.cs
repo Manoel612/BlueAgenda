@@ -75,7 +75,7 @@ public class ContactService : IContactService
         if (entity.AspNetUserId != userId)
             throw new UnauthorizedAccessException("You do not have permission to update this contact.");
 
-        var newContact = await Repository.ActivateOrDeactivateAsync(entity);
+        var newContact = Repository.ActivateOrDeactivate(entity);
         await UnitOfWork.SaveChangesAsync();
 
         return Mapper.Map<ContactModel>(newContact);
