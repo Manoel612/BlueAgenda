@@ -28,7 +28,6 @@ public class CreateUserModelValidator : AbstractValidator<CreateUserModel>
             .NotEmpty()
             .MinimumLength(8)
             .Matches("[a-z]")
-            .Matches("[A-Z]")
             .Matches("[^a-zA-Z0-9]");
 
         RuleFor(x => x.BirthDate)

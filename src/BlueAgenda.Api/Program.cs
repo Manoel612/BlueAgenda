@@ -42,7 +42,19 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<BlueAgendaDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAny", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
+
+app.UseCors("AllowAny");
 
 if (app.Environment.IsDevelopment())
 {
