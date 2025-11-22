@@ -25,7 +25,11 @@ public class CreateUserModelValidator : AbstractValidator<CreateUserModel>
             .Matches(@"^\d{11}$");
 
         RuleFor(x => x.Password)
-            .NotEmpty();
+            .NotEmpty()
+            .MinimumLength(8)
+            .Matches("[a-z]")
+            .Matches("[A-Z]")
+            .Matches("[^a-zA-Z0-9]");
 
         RuleFor(x => x.BirthDate)
             .NotEmpty()
