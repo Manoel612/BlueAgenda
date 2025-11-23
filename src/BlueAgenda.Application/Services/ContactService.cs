@@ -29,7 +29,7 @@ public class ContactService : IContactService
         return contact;
     }
 
-    public async Task<IEnumerable<ContactModel>> GetByUserIdAsync(
+    public async Task<UserContactsModel> GetByUserIdAsync(
         string userId,
         int page = 1,
         int pageSize = 20)

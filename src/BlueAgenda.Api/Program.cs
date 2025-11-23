@@ -44,9 +44,9 @@ builder.Services.AddDbContext<BlueAgendaDbContext>(options =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAny", policy =>
+    options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.AllowAnyOrigin()
+        policy.WithOrigins("http://localhost:5173")
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
@@ -54,7 +54,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-app.UseCors("AllowAny");
+app.UseCors("AllowFrontend");
 
 if (app.Environment.IsDevelopment())
 {

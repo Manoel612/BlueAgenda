@@ -32,12 +32,12 @@ public class ContactReadRepository : IContactReadRepository
         return await conn.QuerySingleOrDefaultAsync<ContactModel>(sql, new { Id = id });
     }
 
-    public async Task<IEnumerable<ContactModel>> GetByUserIdAsync(
+    public async Task<UserContactsModel> GetByUserIdAsync(
         string aspNetUserId,
         int page = 1,
         int pageSize = 20)
     {
-        var sql = @"
+        var sqlItems = @"
             SELECT 
                 Id,
                 Name,
@@ -47,17 +47,33 @@ public class ContactReadRepository : IContactReadRepository
                 CreatedAt
             FROM Contacts
             WHERE AspNetUserId = @UserId
+            AND InactivatedAt IS NULL
             ORDER BY CreatedAt DESC
             OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY;
         ";
 
-        var parameters = new DynamicParameters();
+        var sqlCount = @"
+            SELECT COUNT(*) 
+            FROM Contacts
+            WHERE AspNetUserId = @UserId;
+        ";
 
+        var parameters = new DynamicParameters();
         parameters.Add("UserId", aspNetUserId);
         parameters.Add("Offset", (page - 1) * pageSize);
         parameters.Add("PageSize", pageSize);
 
         using var conn = Factory.CreateConnection();
-        return await conn.QueryAsync<ContactModel>(sql, parameters);
+
+        var items = await conn.QueryAsync<ContactModel>(sqlItems, parameters);
+
+        var TotalItems = await conn.ExecuteScalarAsync<int>(sqlCount, new { UserId = aspNetUserId });
+
+        return new UserContactsModel
+        {
+            Items = items,
+            TotalItems = TotalItems
+        };
     }
+
 }

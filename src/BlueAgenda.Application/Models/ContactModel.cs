@@ -24,3 +24,9 @@ public class CreateContactModel
     public required string PhoneNumber { get; set; }
     public DateTime? BirthDate { get; set; }
 }
+
+public class UserContactsModel
+{
+    public required IEnumerable<ContactModel> Items { get; set; }
+    public required int TotalItems { get; set; }
+}

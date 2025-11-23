@@ -21,6 +21,6 @@ public class CreateContactModelValidator : AbstractValidator<CreateContactModel>
             .Matches(@"^\d{10,11}$");
 
         RuleFor(x => x.BirthDate)
-            .NotEmpty();
+            .LessThanOrEqualTo(DateTime.Today);
     }
 }
