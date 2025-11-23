@@ -18,8 +18,7 @@ public class Contact : BaseEntity
     [StringLength(11, MinimumLength = 10)]
     public required string PhoneNumber { get; set; }
 
-    [Required]
-    public required DateTime BirthDate { get; set; }
+    public DateTime? BirthDate { get; set; }
 
     [Required]
     public required string AspNetUserId { get; set; }

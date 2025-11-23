@@ -6,8 +6,7 @@ public class ContactModel
     public required string Name { get; set; }
     public required string Email { get; set; }
     public required string PhoneNumber { get; set; }
-    public required DateTime BirthDate { get; set; }
-    public required string AspNetUserId { get; set; }
+    public DateTime? BirthDate { get; set; }
 }
 
 public class UpdateContactModel
@@ -23,5 +22,5 @@ public class CreateContactModel
     public required string Name { get; set; }
     public required string Email { get; set; }
     public required string PhoneNumber { get; set; }
-    public required DateTime BirthDate { get; set; }
+    public DateTime? BirthDate { get; set; }
 }
